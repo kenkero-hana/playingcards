@@ -1,20 +1,20 @@
 /*https://www.sejuku.net/blog/91446#index_id4*/
-import java.util.ArryList;
-import java.util.List;
-import java.util.Collections;
+// import java.util.ArryList;
+// import java.util.List;
+//import java.util.Collections;
 import java.util.*;
 
 public class Blackjack {
     public static void main(String args[]){
         System.out.printf("ゲームを");
         //  空の山札を作成
-        List<Integer>deck = new ArryList<>(52);
+        List<Integer> deck = new ArrayList<>(52);
         // 山札をシャッフル
         shuffleDeck(deck);
 
         // プレイヤー・ディーラー
-        List<Integer>player = new ArryList<>();
-        List<Integer>dealer = new ArryList<>();
+        List<Integer> player = new ArrayList<>();
+        List<Integer> dealer = new ArrayList<>();
 
         // プレイヤー・ディーラーがカードを引く
         player.add(deck.get(0));
@@ -29,7 +29,10 @@ public class Blackjack {
         int playerHands = 2;
 
         // プレイヤー・ディーラーの手札のポイント
-        System.out.printf("あなたは１枚目のカードは" + toDescription(player.get(0)));
+        System.out.println("あなたは１枚目のカードは" + toDescription(player.get(0)));
+        System.out.println("ディーラーの１枚目のカードは" + toDescription(dealer.get(0)));
+        System.out.println("あなたの２枚目のカードは" + toDescription(player.get(1)));
+        System.out.println("ディーラーの2枚目のカードは秘密です");
 
         //プレイヤー・ディーラーのポイントを集計
         int playerPoint = sumPoint(player);
@@ -38,7 +41,8 @@ public class Blackjack {
         System.out.println("あなたの現在のポイントは"+playerPoint + "です");
         
     }
-    private static void shuffleDeck(List<Integer>deck){
+
+    private static void shuffleDeck(List<Integer> deck){
         int i = 0;
         // リストに１〜５２の連番を代入
         for(i = 0;i <= 52; i++){
@@ -46,7 +50,7 @@ public class Blackjack {
         }
 
         // 山札をシャッフル
-        Collections.shuffleDeck(deck);
+        //Collections.shuffleDeck(deck);
 
         // リストの中身を確認(デバッグ用)
         /*for(i = 0;i < deck.size(); i++){
