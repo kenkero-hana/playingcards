@@ -51,11 +51,17 @@ public class Blackjack {
             }else if("y".equals(str)){
                 //手札の追加とバーストチェック
                 player.add(deck.get(deckCount));
+
                 deckCount++;
+
                 playerHands++;
+
                 System.out.println("あなたの" + playerHands + "枚目のカードは" + toDescription(player.get(playerHands - 1)));
+
                 playerPoint = sumPoint(player);
+
                 System.out.println("現在の合計は" + playerPoint);
+                
                 if(isBusted(playerPoint)){
                     System.out.println("残念、バーストしてしまいました");
                 }
