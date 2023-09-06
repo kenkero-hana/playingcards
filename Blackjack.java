@@ -6,7 +6,8 @@ import java.util.*;
 
 public class Blackjack {
     public static void main(String args[]){
-        System.out.printf("ゲームを");
+        
+        System.out.printf("ゲームを開始します");
         //  空の山札を作成
         List<Integer> deck = new ArrayList<>(52);
         // 山札をシャッフル
@@ -40,6 +41,57 @@ public class Blackjack {
 
         System.out.println("あなたの現在のポイントは"+playerPoint + "です");
         
+        while(true){
+            System.out.println("カードを引きますか？Yes:y or No:n");
+            //キーボードの入力を受けて変数strに代入する
+            Scanner scan = new Scanner(System.in);
+            String str = scan.next();
+            if("n".equals(str)){
+                break;
+            }else if("y".equals(str)){
+                //手札の追加とバーストチェック
+                player.add(deck.get(deckCount));
+                deckCount++;
+                playerHands++;
+                System.out.println("あなたの" + playerHands + "枚目のカードは" + toDescription(player.get(playerHands - 1)));
+                playerPoint = sumPoint(player);
+                System.out.println("現在の合計は" + playerPoint);
+                if(isBusted(playerPoint)){
+                    System.out.println("残念、バーストしてしまいました");
+                }
+            }else{
+                System.out.println("あなたの入力は" + str + "です");
+            }
+        }
+
+        while(true){
+            if(dealerPoint >= 17){
+                break;
+            }else{
+                // 手札に山札から1枚加える
+                dealer.add(deck.get(deckCount));
+                // 山札を1枚進める
+                deckCount++;
+
+                //ディーラーの合計ポイントを計算
+                dealerPoint = sumPoint(dealer);
+                //ディーラーのバーストチェック
+                if(isBusted(dealerPoint)){
+                    System.out.println("ディーラーがバーストしました。プレイヤーのかち！");
+                    return;
+                }
+            }
+        }
+        System.out.println("あなたのポイントは" + playerPoint);
+        System.out.println("ディーラーのポイントは" + dealerPoint);
+
+        if(playerPoint == dealerPoint){
+            System.out.println("引き分けです。");
+        }else if(playerPoint > dealerPoint){
+            System.out.println("勝ちました");
+        }else{
+            System.out.println("負けました");
+        }
     }
 
     private static void shuffleDeck(List<Integer> deck){
@@ -50,13 +102,22 @@ public class Blackjack {
         }
 
         // 山札をシャッフル
-        //Collections.shuffleDeck(deck);
+        Collections.shuffle(deck);
 
         // リストの中身を確認(デバッグ用)
         /*for(i = 0;i < deck.size(); i++){
             System.out.printf(deck.get(i));
         } */
     }
+
+    private static boolean isBusted(int point){
+        if(point <= 21){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     // 現在の合計ポイントを計算するメソッド
     private static int sumPoint(List<Integer>list){
         int sum = 0;
